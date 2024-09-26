@@ -1,0 +1,340 @@
+{
+    "version": "0.1.0",
+    "name": "veladao",
+    "instructions": [
+        {
+            "name": "initializePlatform",
+            "accounts": [
+                {
+                    "name": "platform",
+                    "isMut": true,
+                    "isSigner": true
+                },
+                {
+                    "name": "manager",
+                    "isMut": true,
+                    "isSigner": true
+                },
+                {
+                    "name": "systemProgram",
+                    "isMut": false,
+                    "isSigner": false
+                }
+            ],
+            "args": []
+        },
+        {
+            "name": "initializeProject",
+            "accounts": [
+                {
+                    "name": "project",
+                    "isMut": true,
+                    "isSigner": true
+                },
+                {
+                    "name": "manager",
+                    "isMut": true,
+                    "isSigner": true
+                },
+                {
+                    "name": "systemProgram",
+                    "isMut": false,
+                    "isSigner": false
+                }
+            ],
+            "args": [
+                {
+                    "name": "name",
+                    "type": "string"
+                },
+                {
+                    "name": "description",
+                    "type": "string"
+                },
+                {
+                    "name": "targetAmount",
+                    "type": "u64"
+                },
+                {
+                    "name": "milestones",
+                    "type": {
+                        "vec": "u64"
+                    }
+                },
+                {
+                    "name": "deadline",
+                    "type": "i64"
+                }
+            ]
+        },
+        {
+            "name": "donate",
+            "accounts": [
+                {
+                    "name": "platform",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "project",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "donation",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "donor",
+                    "isMut": true,
+                    "isSigner": true
+                },
+                {
+                    "name": "donorTokenAccount",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "projectVault",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "tokenProgram",
+                    "isMut": false,
+                    "isSigner": false
+                },
+                {
+                    "name": "systemProgram",
+                    "isMut": false,
+                    "isSigner": false
+                }
+            ],
+            "args": [
+                {
+                    "name": "amount",
+                    "type": "u64"
+                }
+            ]
+        },
+        {
+            "name": "withdrawFunds",
+            "accounts": [
+                {
+                    "name": "project",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "manager",
+                    "isMut": false,
+                    "isSigner": true
+                },
+                {
+                    "name": "managerTokenAccount",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "projectVault",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "tokenProgram",
+                    "isMut": false,
+                    "isSigner": false
+                }
+            ],
+            "args": []
+        },
+        {
+            "name": "refund",
+            "accounts": [
+                {
+                    "name": "project",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "donation",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "donor",
+                    "isMut": true,
+                    "isSigner": true
+                },
+                {
+                    "name": "donorTokenAccount",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "projectVault",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "tokenProgram",
+                    "isMut": false,
+                    "isSigner": false
+                }
+            ],
+            "args": []
+        }
+    ],
+    "accounts": [
+        {
+            "name": "Platform",
+            "type": {
+                "kind": "struct",
+                "fields": [
+                    {
+                        "name": "manager",
+                        "type": "publicKey"
+                    },
+                    {
+                        "name": "totalFunds",
+                        "type": "u64"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Project",
+            "type": {
+                "kind": "struct",
+                "fields": [
+                    {
+                        "name": "name",
+                        "type": "string"
+                    },
+                    {
+                        "name": "description",
+                        "type": "string"
+                    },
+                    {
+                        "name": "manager",
+                        "type": "publicKey"
+                    },
+                    {
+                        "name": "targetAmount",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "currentAmount",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "deadline",
+                        "type": "i64"
+                    },
+                    {
+                        "name": "state",
+                        "type": {
+                            "defined": "ProjectState"
+                        }
+                    },
+                    {
+                        "name": "milestones",
+                        "type": {
+                            "vec": "u64"
+                        }
+                    },
+                    {
+                        "name": "currentMilestone",
+                        "type": "u64"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Donation",
+            "type": {
+                "kind": "struct",
+                "fields": [
+                    {
+                        "name": "donor",
+                        "type": "publicKey"
+                    },
+                    {
+                        "name": "project",
+                        "type": "publicKey"
+                    },
+                    {
+                        "name": "amount",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "timestamp",
+                        "type": "i64"
+                    }
+                ]
+            }
+        }
+    ],
+    "types": [
+        {
+            "name": "ProjectState",
+            "type": {
+                "kind": "enum",
+                "variants": [
+                    {
+                        "name": "Active"
+                    },
+                    {
+                        "name": "Successful"
+                    },
+                    {
+                        "name": "Expired"
+                    }
+                ]
+            }
+        }
+    ],
+    "errors": [
+        {
+            "code": 6000,
+            "name": "ProjectNotActive",
+            "msg": "Project is not active"
+        },
+        {
+            "code": 6001,
+            "name": "ProjectExpired",
+            "msg": "Project has expired"
+        },
+        {
+            "code": 6002,
+            "name": "ProjectNotSuccessful",
+            "msg": "Project is not successful"
+        },
+        {
+            "code": 6003,
+            "name": "ProjectNotExpired",
+            "msg": "Project has not expired"
+        },
+        {
+            "code": 6004,
+            "name": "ProjectSuccessful",
+            "msg": "Project is successful"
+        },
+        {
+            "code": 6005,
+            "name": "Overflow",
+            "msg": "Overflow detected"
+        },
+        {
+            "code": 6006,
+            "name": "Underflow",
+            "msg": "Underflow detected"
+        },
+        {
+            "code": 6007,
+            "name": "BumpNotFound",
+            "msg": "Bump for the account not found"
+        }
+    ]
+}

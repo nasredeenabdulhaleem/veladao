@@ -1,0 +1,61 @@
+vite-test/
+test/
+sol-smart-contracts/
+smart-contracts/
+# Node.js dependencies
+node_modules/
+**/node_modules/
+
+# Build directories
+dist/
+build/
+**/dist/
+**/build/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE specific files
+.vscode/
+.idea/
+
+# Coverage directory used by tools like istanbul
+coverage/
+**/coverage/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Specific directories to ignore
+vite-test/
+test/
+sol-smart-contracts/
+smart-contracts/
+veladao-crowdfund/.anchor
+veladao-crowdfund/target
+veladao-crowdfund/test-ledger
+veladao-crowdfund/.yarn
+
+# Backup files
+**/*.rs.bk
+
+# Miscellaneous
+*.swp
+*.swo
+*.bak
+*.orig
+*.rej
+*.sublime-project
+*.sublime-workspace
