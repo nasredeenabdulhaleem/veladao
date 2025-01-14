@@ -16,6 +16,7 @@ const CreateProjectForm = () => {
     const [imagePreview, setImagePreview] = useState(null);
     const [milestones, setMilestones] = useState([]);
     const [milestoneInput, setMilestoneInput] = useState('');
+    const [milestoneTarget, setMilestoneTarget] = useState('');
     const [milestoneDueDate, setMilestoneDueDate] = useState('');
     const [tags, setTags] = useState('');
     const [featured, setFeatured] = useState(false);
@@ -35,8 +36,9 @@ const CreateProjectForm = () => {
     // Handle adding milestones
     const addMilestone = () => {
         if (milestoneInput && milestoneDueDate) {
-            setMilestones([...milestones, { description: milestoneInput, dueDate: milestoneDueDate, status: 'pending' }]);
+            setMilestones([...milestones, { description: milestoneInput, targetAmount: milestoneTarget, dueDate: milestoneDueDate, status: 'pending' }]);
             setMilestoneInput('');
+            setMilestoneTarget('');
             setMilestoneDueDate('');
         }
     };
@@ -146,6 +148,13 @@ const CreateProjectForm = () => {
                             className="w-full px-4 py-2 border rounded-l-lg focus:outline-none focus:border-teal-500"
                         />
                         <input
+                            type="number"
+                            value={milestoneTarget}
+                            onChange={(e) => setMilestoneTarget(e.target.value)}
+                            placeholder="Enter target amount"
+                            className="w-full px-4 py-2 border focus:outline-none focus:border-teal-500"
+                        />
+                        <input
                             type="date"
                             value={milestoneDueDate}
                             onChange={(e) => setMilestoneDueDate(e.target.value)}
@@ -164,6 +173,7 @@ const CreateProjectForm = () => {
                             <li key={index} className="bg-gray-100 px-4 py-2 rounded-lg shadow-sm">
                                 <div>{milestone.description}</div>
                                 <div className="text-sm text-gray-600">Due: {milestone.dueDate}</div>
+                                <div className="text-sm text-gray-600">Target: ${milestone.targetAmount}</div>
                                 <div className="text-sm text-gray-600">Status: {milestone.status}</div>
                             </li>
                         ))}

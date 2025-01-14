@@ -5,6 +5,8 @@ const sequelize = require("./config/config"); // Import the sequelize instance
 // const settle = require("settle");
 
 const app = express();
+// solana-keygen new -o deployer-keypair.json
+// solana-keygen new -o platform-manager-keypair.json
 
 // Test the database connection
 sequelize

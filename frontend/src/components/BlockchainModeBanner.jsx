@@ -12,7 +12,7 @@ const BlockchainModeBanner = () => {
     const modeDisplay = blockchainMode === 'testnet' ? 'Testnet' : blockchainMode === 'devnet' ? 'Devnet' : 'Localnet';
 
     return (
-        <div className="bg-yellow-300 text-yellow-800 text-center py-2">
+        <div className="bg-yellow-300 text-yellow-800 text-center py-2 fixed top-0 w-full z-50">
             <p>
                 You are currently viewing the platform on <strong>{modeDisplay}</strong>. Transactions and data are for testing purposes only.
             </p>

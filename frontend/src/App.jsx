@@ -43,6 +43,8 @@ import AppSettings from './components/Admin/Settings/AppSettings';
 import MaintenanceMode from './components/MaintenanceMode';
 import { getSetting } from './redux/actions/settingsActions';
 import { useDispatch, useSelector } from 'react-redux';
+import FollowUS from './components/Landing/FollowUS';
+import SuccessfulMilestone from './components/Milestone/SuccessfulMilestone';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -91,6 +93,8 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/" element={<Home />} />
+            <Route path='/follow-us' element={<FollowUS />} />
+            < Route path="project/milestone/6" element={<SuccessfulMilestone />} />
             <Route path="/project/:projectId" element={<ProjectDetailPage />} />
             <Route path="/projects" element={<ProjectList />} />
             <Route path="/terms-and-conditions" element={<TermsAndConditions />} />

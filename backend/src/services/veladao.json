@@ -16,11 +16,6 @@
                     "isSigner": true
                 },
                 {
-                    "name": "platformWallet",
-                    "isMut": false,
-                    "isSigner": false
-                },
-                {
                     "name": "systemProgram",
                     "isMut": false,
                     "isSigner": false
@@ -30,6 +25,10 @@
                 {
                     "name": "initialFee",
                     "type": "u16"
+                },
+                {
+                    "name": "platformWallet",
+                    "type": "publicKey"
                 }
             ]
         },
@@ -58,14 +57,14 @@
             "name": "initializeProject",
             "accounts": [
                 {
-                    "name": "project",
-                    "isMut": true,
-                    "isSigner": true
-                },
-                {
                     "name": "platform",
                     "isMut": true,
                     "isSigner": false
+                },
+                {
+                    "name": "project",
+                    "isMut": true,
+                    "isSigner": true
                 },
                 {
                     "name": "manager",
@@ -109,6 +108,11 @@
             "name": "updateProject",
             "accounts": [
                 {
+                    "name": "platform",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
                     "name": "project",
                     "isMut": true,
                     "isSigner": false
@@ -145,7 +149,7 @@
             ]
         },
         {
-            "name": "recordDonation",
+            "name": "processDonation",
             "accounts": [
                 {
                     "name": "platform",
@@ -158,17 +162,12 @@
                     "isSigner": false
                 },
                 {
-                    "name": "donation",
-                    "isMut": true,
-                    "isSigner": false
-                },
-                {
-                    "name": "donor",
-                    "isMut": true,
+                    "name": "manager",
+                    "isMut": false,
                     "isSigner": true
                 },
                 {
-                    "name": "donorTokenAccount",
+                    "name": "donationTokenAccount",
                     "isMut": true,
                     "isSigner": false
                 },
@@ -186,17 +185,16 @@
                     "name": "tokenProgram",
                     "isMut": false,
                     "isSigner": false
-                },
-                {
-                    "name": "systemProgram",
-                    "isMut": false,
-                    "isSigner": false
                 }
             ],
             "args": [
                 {
                     "name": "amount",
                     "type": "u64"
+                },
+                {
+                    "name": "donor",
+                    "type": "publicKey"
                 },
                 {
                     "name": "donationReference",
@@ -224,6 +222,51 @@
                 }
             ],
             "args": []
+        },
+        {
+            "name": "processRefund",
+            "accounts": [
+                {
+                    "name": "platform",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "project",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "manager",
+                    "isMut": false,
+                    "isSigner": true
+                },
+                {
+                    "name": "donorTokenAccount",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "projectVault",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "tokenProgram",
+                    "isMut": false,
+                    "isSigner": false
+                }
+            ],
+            "args": [
+                {
+                    "name": "donor",
+                    "type": "publicKey"
+                },
+                {
+                    "name": "amount",
+                    "type": "u64"
+                }
+            ]
         },
         {
             "name": "withdrawFunds",
@@ -255,84 +298,6 @@
                 }
             ],
             "args": []
-        },
-        {
-            "name": "refund",
-            "accounts": [
-                {
-                    "name": "project",
-                    "isMut": true,
-                    "isSigner": false
-                },
-                {
-                    "name": "donation",
-                    "isMut": true,
-                    "isSigner": false
-                },
-                {
-                    "name": "donor",
-                    "isMut": true,
-                    "isSigner": true
-                },
-                {
-                    "name": "donorTokenAccount",
-                    "isMut": true,
-                    "isSigner": false
-                },
-                {
-                    "name": "projectVault",
-                    "isMut": true,
-                    "isSigner": false
-                },
-                {
-                    "name": "tokenProgram",
-                    "isMut": false,
-                    "isSigner": false
-                }
-            ],
-            "args": []
-        },
-        {
-            "name": "getProject",
-            "accounts": [
-                {
-                    "name": "project",
-                    "isMut": false,
-                    "isSigner": false
-                }
-            ],
-            "args": [],
-            "returns": {
-                "defined": "ProjectInfo"
-            }
-        },
-        {
-            "name": "getDonation",
-            "accounts": [
-                {
-                    "name": "donation",
-                    "isMut": false,
-                    "isSigner": false
-                }
-            ],
-            "args": [],
-            "returns": {
-                "defined": "DonationInfo"
-            }
-        },
-        {
-            "name": "getPlatformInfo",
-            "accounts": [
-                {
-                    "name": "platform",
-                    "isMut": false,
-                    "isSigner": false
-                }
-            ],
-            "args": [],
-            "returns": {
-                "defined": "PlatformInfo"
-            }
         }
     ],
     "accounts": [
@@ -422,34 +387,10 @@
                     {
                         "name": "platformFee",
                         "type": "u16"
-                    }
-                ]
-            }
-        },
-        {
-            "name": "Donation",
-            "type": {
-                "kind": "struct",
-                "fields": [
+                    },
                     {
-                        "name": "donor",
+                        "name": "platformWallet",
                         "type": "publicKey"
-                    },
-                    {
-                        "name": "project",
-                        "type": "publicKey"
-                    },
-                    {
-                        "name": "amount",
-                        "type": "u64"
-                    },
-                    {
-                        "name": "timestamp",
-                        "type": "i64"
-                    },
-                    {
-                        "name": "reference",
-                        "type": "string"
                     }
                 ]
             }
@@ -534,34 +475,6 @@
                     {
                         "name": "currentMilestone",
                         "type": "u64"
-                    }
-                ]
-            }
-        },
-        {
-            "name": "DonationInfo",
-            "type": {
-                "kind": "struct",
-                "fields": [
-                    {
-                        "name": "donor",
-                        "type": "publicKey"
-                    },
-                    {
-                        "name": "project",
-                        "type": "publicKey"
-                    },
-                    {
-                        "name": "amount",
-                        "type": "u64"
-                    },
-                    {
-                        "name": "timestamp",
-                        "type": "i64"
-                    },
-                    {
-                        "name": "reference",
-                        "type": "string"
                     }
                 ]
             }
@@ -681,7 +594,7 @@
             ]
         },
         {
-            "name": "DonationRecorded",
+            "name": "DonationProcessed",
             "fields": [
                 {
                     "name": "project",
@@ -702,6 +615,11 @@
                     "name": "feeAmount",
                     "type": "u64",
                     "index": false
+                },
+                {
+                    "name": "reference",
+                    "type": "string",
+                    "index": false
                 }
             ]
         },
@@ -715,6 +633,26 @@
                 },
                 {
                     "name": "milestoneIndex",
+                    "type": "u64",
+                    "index": false
+                }
+            ]
+        },
+        {
+            "name": "RefundProcessed",
+            "fields": [
+                {
+                    "name": "project",
+                    "type": "publicKey",
+                    "index": false
+                },
+                {
+                    "name": "donor",
+                    "type": "publicKey",
+                    "index": false
+                },
+                {
+                    "name": "amount",
                     "type": "u64",
                     "index": false
                 }
@@ -771,11 +709,6 @@
             "code": 6009,
             "name": "Underflow",
             "msg": "Underflow detected"
-        },
-        {
-            "code": 6010,
-            "name": "BumpNotFound",
-            "msg": "Bump for the account not found"
         }
     ]
 }

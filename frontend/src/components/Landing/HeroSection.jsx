@@ -4,7 +4,7 @@ const HeroSection = () => {
   return (
     <section className="relative bg-gradient-to-r from-teal-400 to-teal-600 text-white py-20 lg:py-32">
       {/* Background Image */}
-      <div className="absolute inset-0 bg-cover bg-center opacity-60" style={{ backgroundImage: "url('src/assets/hero-banner.png')" }}></div>
+      <div className="absolute inset-0 bg-cover bg-center opacity-60" style={{ backgroundImage: "url('src/assets/banner-lg.jpg')" }}></div>
 
       {/* Overlay */}
       <div className="relative z-10 container mx-auto px-6 lg:px-20 flex flex-col items-center">

@@ -2,32 +2,63 @@
 
 const { Project, Milestone, Contribution, Review, User, RecentActivity } = require("../models");
 const { BN } = require('@project-serum/anchor');
-const SolanaService = require('../services/solanaService')
+const anchor = require('@project-serum/anchor');
+const { Keypair, Connection, clusterApiUrl } = require('@solana/web3.js');
+const { Wallet } = require('@project-serum/anchor');
+const VelaDAOService = require('../services/veladaoService'); // Adjust the path as needed
 
-const managerSecretKey = require('../secret-key.json')
-const solanaService = new SolanaService('https://api.devnet.solana.com', managerSecretKey);
+// const SolanaService = require('../services/solanaService')
+// const VeladaoService = require('../services/veladaoService')
+
+const managerSecretKey = require('../secret-key.json'); // The manager's secret key
+const platformWalletKey = require('../platform-wallet-keypair.json'); // The platform wallet
+
+// Convert secret key into Keypair for the wallet
+const managerKeypair = Keypair.fromSecretKey(new Uint8Array(managerSecretKey));
+
+// // Initialize connection and wallet
+// const connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
+// const wallet = new anchor.Wallet(managerKeypair); // Use managerKeypair for the wallet
+
+// // Create the Anchor provider
+// const provider = new anchor.AnchorProvider(connection, wallet, { commitment: 'confirmed' });
+// anchor.setProvider(provider);
+const platformWallet = Keypair.fromSecretKey(Buffer.from(platformWalletKey));
+const PDA = "GNap3DpM75MTEz5bvoKm5uncy2BXtQeXXxysp8HHeRTA"
+// const PDA = "FaWdqQKDnnwageoxYEizU97cuMNDmH7hsP9AbLoEUAbn"
 
 
 class ProjectController {
   constructor() {
-    this.solanaService = new SolanaService('https://api.devnet.solana.com', managerSecretKey);//new SolanaService(config.solanaRpcUrl, config.managerSecretKey);
+    // this.veladaoService = VeladaoService//new VeladaoService(provider, new anchor.web3.PublicKey('GNap3DpM75MTEz5bvoKm5uncy2BXtQeXXxysp8HHeRTA'));//new SolanaService('https://api.devnet.solana.com', managerSecretKey);//new SolanaService(config.solanaRpcUrl, config.managerSecretKey);
+    this.createProject = this.createProject.bind(this); // Bind the method
+
   }
   async createProject(req, res) {
     try {
       const { title, description, fundingGoal, endDate, milestones, imageUrl, tags, featured, manager } = req.body;
+      // const veladao =
+      // const veladao = this.veladaoService.initializePlatform(managerKeypair, platformWallet, 500)
+      //   .then(() => console.log('Platform initialized'))
+      //   .catch(error => {
+      //     console.error('Error initializing platform:', error);
+      //     if (error.logs) {
+      //       console.error('Error logs:', error.logs);
+      //     }
+      //   });
 
-      const smartMilestone = milestones.map(m => ({
-        description: m.description,
-        dueDate: new BN(new Date(m.dueDate).getTime() / 1000)
-      }))
-      console.log("milestones", smartMilestone)
+      // const smartMilestone = milestones.map(m => ({
+      //   description: m.description,
+      //   target_amount: new BN(m.targetAmount),
+      //   end_date: new BN(new Date(m.dueDate).getTime() / 1000)
+      // }))
+      // console.log("milestones", smartMilestone)
       // Ensure platform is initialized
-      if (!solanaService.platformPubkey) {
-        await solanaService.initializePlatform();
-      }
 
-      const projectId = await solanaService.initializeProject(title, description, fundingGoal, smartMilestone.map(m => m.dueDate), endDate);
-      console.log("Project initialized with ID:", projectId);
+      // await solanaService.initializePlatform();
+
+      // const projectId = await this.veladaoService.initializeProject(managerKeypair, PDA, title, description, Number(fundingGoal), smartMilestone, Number(endDate));
+      // console.log("Project initialized with ID:", projectId);
 
 
       // Create a new project

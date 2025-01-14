@@ -32,16 +32,16 @@ const Footer = () => {
                     <div className="mb-6 md:mb-0">
                         <h3 className="text-lg font-bold mb-4">Follow Us</h3>
                         <div className="flex space-x-4">
-                            <a href="#" className="text-white hover:text-teal-500 transition-colors duration-300">
+                            <a href="https://x.com/velada0" className="text-white hover:text-teal-500 transition-colors duration-300">
                                 <FontAwesomeIcon icon={faFacebook} size="2x" />
                             </a>
-                            <a href="#" className="text-white hover:text-teal-500 transition-colors duration-300">
+                            <a href="https://x.com/velada0" className="text-white hover:text-teal-500 transition-colors duration-300">
                                 <FontAwesomeIcon icon={faTwitter} size="2x" />
                             </a>
-                            <a href="#" className="text-white hover:text-teal-500 transition-colors duration-300">
+                            <a href="https://x.com/velada0" className="text-white hover:text-teal-500 transition-colors duration-300">
                                 <FontAwesomeIcon icon={faInstagram} size="2x" />
                             </a>
-                            <a href="#" className="text-white hover:text-teal-500 transition-colors duration-300">
+                            <a href="https://x.com/velada0" className="text-white hover:text-teal-500 transition-colors duration-300">
                                 <FontAwesomeIcon icon={faLinkedin} size="2x" />
                             </a>
                         </div>

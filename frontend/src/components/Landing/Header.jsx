@@ -30,7 +30,7 @@ const Header = () => {
     };
 
     return (
-        <header className="bg-white shadow-md fixed w-full z-50">
+        <header className="bg-white shadow-md fixed w-full z-50" style={{ top: '2rem' }}>
             <div className="container mx-auto px-6 py-4 flex justify-between items-center">
                 {/* Logo */}
                 <div className="text-2xl flex flex-row font-bold text-teal-600">

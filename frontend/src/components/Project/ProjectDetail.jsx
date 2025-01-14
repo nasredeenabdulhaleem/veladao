@@ -11,6 +11,7 @@ import Comments from './Comments';
 
 const ProjectDetail = () => {
   const { projectDetail } = useSelector((state) => state.project);
+  console.log(projectDetail);
   const { user, isAuthenticated } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const { projectId } = useParams();

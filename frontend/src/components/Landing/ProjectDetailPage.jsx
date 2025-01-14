@@ -154,7 +154,7 @@ const ProjectDetailPage = () => {
                             style={{ width: `${(currentFunding / fundingGoal) * 100}%` }}
                         ></div>
                     </div>
-                    <ContributeToProject projectPublicKey='2dgFSh4jT2NjzMGotXEifXoidMdHZbb5Jd7UiTTNEaLu' />
+                    <ContributeToProject projectPublicKey='FaWdqQKDnnwageoxYEizU97cuMNDmH7hsP9AbLoEUAbn' />
                     {/* Tags */}
                     <div className="flex space-x-2 mt-2">
                         {Array.isArray(tags) && tags.map((tag, index) => (
@@ -165,24 +165,24 @@ const ProjectDetailPage = () => {
                         ))}
                     </div>
                 </div>
-                <div className="mb-8 flex justify-center space-x-4">
-                    <button
-                        onClick={handleCopyUrl}
-                        className="bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none"
-                    >
-                        <FontAwesomeIcon icon={faCopy} className="mr-2" />
-                        Copy Project URL
-                    </button>
-                    <button
-                        onClick={handleShareUrl}
-                        className="bg-green-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-green-700 focus:outline-none"
-                    >
-                        <FontAwesomeIcon icon={faShareAlt} className="mr-2" />
-                        Share Project
-                    </button>
-                </div>
-            </div>
 
+            </div>
+            <div className="mb-8 flex justify-center space-x-4">
+                <button
+                    onClick={handleCopyUrl}
+                    className="bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none"
+                >
+                    <FontAwesomeIcon icon={faCopy} className="mr-2" />
+                    Copy Project URL
+                </button>
+                <button
+                    onClick={handleShareUrl}
+                    className="bg-green-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-green-700 focus:outline-none"
+                >
+                    <FontAwesomeIcon icon={faShareAlt} className="mr-2" />
+                    Share Project
+                </button>
+            </div>
             {/* Tabs Navigation */}
             <div className="mb-10">
                 <ul className="flex border-b-2 border-gray-300">
